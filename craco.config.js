@@ -1,7 +1,17 @@
 const CracoLessPlugin = require('craco-less');
 const path = require('path');
 const lessModuleRegex = /\.module\.less$/;
+const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
 module.exports = {
+  title: 'Demo',
+  webpack: {
+    alias: {
+      '@': pathResolve('src')
+    }
+  },
+  babel: {
+    plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]]
+  },
   plugins: [
     {
       plugin: CracoLessPlugin,
@@ -30,9 +40,11 @@ module.exports = {
     }
   ],
   resolve: {
+    // 以下配置会将没指定拓展名的文件按如下类型查找匹配
+    extensions: ['*', '.js', '.jsx', '.tsx', '.ts'],
+    // 设置别名
     alias: {
-      '@': /* path.join(__dirname, */ './src'/* ) */
+      '@': path.resolve(__dirname, '../src') // 这样配置后 @ 可以指向 src 目录
     }
-  },
-  open: false
+  }
 };

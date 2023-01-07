@@ -1,5 +1,5 @@
+import Demo from '@/page';
 import { RouteObject } from 'react-router-dom';
-import Demo from '../page/index';
 const routers: RouteObject[] = [
   { index: true, element: '重定向', path: '/' },
   {
