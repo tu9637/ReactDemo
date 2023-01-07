@@ -1,7 +1,8 @@
 import { Suspense } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import routers from './router';
-import styles from './styles/App.module.less';
+import routers from '@/router';
+import styles from '@styles/App.module.less';
+
 function App() {
   return (
     <div className={styles.App}>

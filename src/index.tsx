@@ -1,15 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from 'react';
 import store from './store';
-import './styles/index.module.less';
+import 'antd/dist/reset.css';
+// import './styles/index.module.less';
+import zhCN from 'antd/locale/zh_CN';
+import { ConfigProvider } from 'antd';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
+import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ConfigProvider locale={zhCN}>
+        <App />
+      </ConfigProvider>
     </Provider>
   </React.StrictMode>
 );

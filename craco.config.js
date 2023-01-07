@@ -1,4 +1,6 @@
 const CracoLessPlugin = require('craco-less');
+const { whenDev, whenProd, when } = require('@craco/craco');
+const fastRefreshCracoPlugin = require('craco-fast-refresh');
 const path = require('path');
 const lessModuleRegex = /\.module\.less$/;
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
@@ -6,11 +8,39 @@ module.exports = {
   title: 'Demo',
   webpack: {
     alias: {
-      '@': pathResolve('src')
+      '@': pathResolve('src'),
+      '@styles': pathResolve('src/styles'),
+      '@assets': pathResolve('src/assets'),
+      '@components': pathResolve('src/components'),
+      '@pages': pathResolve('src/pages'),
+      '@store': pathResolve('src/store'),
+      '@utils': pathResolve('src/utils')
+    }
+  },
+  devServer: {
+    open: false,
+    proxy: {
+      // '/api': {
+      //   target: 'http://localhost:3001',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/api': '/api'
+      //   }
+      // }
     }
   },
   babel: {
-    plugins: [['@babel/plugin-proposal-decorators', { legacy: true }]]
+    plugins: [
+      [
+        'import',
+        {
+          libraryName: 'antd',
+          libraryDirectory: 'es',
+        },
+        'antd'
+      ],
+      ['@babel/plugin-proposal-decorators', { legacy: true }]
+    ]
   },
   plugins: [
     {
@@ -19,6 +49,9 @@ module.exports = {
         // less loader options
         lessLoaderOptions: {
           lessOptions: {
+            /*
+                    如果项目中有使用TDesign或AntDesign组件库需要自定义主题，可以在modifyVars中添加对应less变量
+                */
             modifyVars: { '@primary-color': '#1DA57A' },
             javascriptEnabled: true
           }
@@ -38,6 +71,14 @@ module.exports = {
         }
       }
     }
+    // ...whenDev(
+    //   () => [
+    //     {
+    //       plugin: fastRefreshCracoPlugin// 快速更新 未找到原因
+    //     }
+    //   ],
+    //   []
+    // )
   ],
   resolve: {
     // 以下配置会将没指定拓展名的文件按如下类型查找匹配

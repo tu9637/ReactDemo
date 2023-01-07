@@ -1,7 +1,7 @@
 import Demo from '@/page';
 import { RouteObject } from 'react-router-dom';
 const routers: RouteObject[] = [
-  { index: true, element: '重定向', path: '/' },
+  { index: true, element: <Demo></Demo>, path: '/' },
   {
     path: '/',
     children: [
@@ -12,7 +12,7 @@ const routers: RouteObject[] = [
     ]
   },
   {
-    path: '/contact',
+    path: '/demo',
     element: <Demo></Demo>
   },
   {
