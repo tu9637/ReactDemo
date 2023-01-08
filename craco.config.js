@@ -4,6 +4,18 @@ const fastRefreshCracoPlugin = require('craco-fast-refresh');
 const path = require('path');
 const lessModuleRegex = /\.module\.less$/;
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
+const prodPlugin = [];
+// 生产环境去除打印
+if (process.env.NODE_ENV === 'production') {
+  // 如果是生产环境，则自动清理掉打印的日志，但保留error 与 warn
+  prodPlugin.push([
+    'transform-remove-console',
+    {
+      // 保留 console.error 与 console.warn
+      exclude: ['error', 'warn']
+    }
+  ]);
+}
 module.exports = {
   title: 'Demo',
   webpack: {
@@ -19,6 +31,7 @@ module.exports = {
   },
   devServer: {
     open: false,
+    historyApiFallback: true,
     proxy: {
       // '/api': {
       //   target: 'http://localhost:3001',
@@ -35,11 +48,14 @@ module.exports = {
         'import',
         {
           libraryName: 'antd',
-          libraryDirectory: 'es',
+          libraryDirectory: 'es'
         },
         'antd'
       ],
-      ['@babel/plugin-proposal-decorators', { legacy: true }]
+      ['@babel/plugin-proposal-decorators', { legacy: true }],
+      // 去除打印
+      // ['transform-remove-console', { exclude: ['error', 'warn'] }]
+      ...prodPlugin
     ]
   },
   plugins: [

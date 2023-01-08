@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 const Demo = () => {
   const dispatch = useDispatch();
   const {value} = useSelector((state: RootState) => state.counterSlice);
+  console.log('测试打印' )
   return (
     <div style={{ backgroundColor: '#8df', height: '100vh', color: 'red' }}>
       <div>这是Demo{value}</div>
