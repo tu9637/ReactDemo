@@ -1,6 +1,4 @@
 const CracoLessPlugin = require('craco-less');
-const { whenDev, whenProd, when } = require('@craco/craco');
-const fastRefreshCracoPlugin = require('craco-fast-refresh');
 const path = require('path');
 const lessModuleRegex = /\.module\.less$/;
 const pathResolve = (pathUrl) => path.join(__dirname, pathUrl);
@@ -17,7 +15,6 @@ if (process.env.NODE_ENV === 'production') {
   ]);
 }
 module.exports = {
-  title: 'Demo',
   webpack: {
     alias: {
       '@': pathResolve('src'),
@@ -54,7 +51,6 @@ module.exports = {
       ],
       ['@babel/plugin-proposal-decorators', { legacy: true }],
       // 去除打印
-      // ['transform-remove-console', { exclude: ['error', 'warn'] }]
       ...prodPlugin
     ]
   },
@@ -87,14 +83,6 @@ module.exports = {
         }
       }
     }
-    // ...whenDev(
-    //   () => [
-    //     {
-    //       plugin: fastRefreshCracoPlugin// 快速更新 未找到原因
-    //     }
-    //   ],
-    //   []
-    // )
   ],
   resolve: {
     // 以下配置会将没指定拓展名的文件按如下类型查找匹配

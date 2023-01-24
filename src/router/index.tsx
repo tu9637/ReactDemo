@@ -1,22 +1,24 @@
 import Demo from '@/page';
-import { RouteObject } from 'react-router-dom';
+import { lazy } from 'react';
+import { Navigate, RouteObject } from 'react-router-dom';
+const Ws = lazy(() => import("@/page/Ws"))
 const routers: RouteObject[] = [
-  { index: true, element: <Demo></Demo>, path: '/' },
+  { index: true, element: <Navigate to="/demo" />, path: '/' },
   {
-    path: '/',
-    children: [
-      {
-        path: 'content',
-        element: '这是页面'
-      }
-    ]
+    // path: '/',
+    // children: [
+    //   {
+    path: '/content',
+    element: <Ws></Ws>
+    //   }
+    // ]
   },
   {
     path: '/demo',
     element: <Demo></Demo>
   },
   {
-    path: '/*',
+    path: '*',
     element: '404'
   }
 ];
